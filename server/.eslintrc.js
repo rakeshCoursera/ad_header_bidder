@@ -5,5 +5,10 @@ module.exports = {
         'no-underscore-dangle': 0,
         'no-prototype-builtins': 0,
         'consistent-return': 0,
+    },
+    "env": {
+        "node": true,
+        "jest": true
     }
+    
 };

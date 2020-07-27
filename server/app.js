@@ -21,8 +21,8 @@ mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPass}@cluster0.6wnm9.mongodb
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-})
-  .then(() => console.log('MongoDB connected...'))
+  useFindAndModify: false,
+}).then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
 
 mongoose.Promise = global.Promise;

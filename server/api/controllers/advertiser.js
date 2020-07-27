@@ -5,7 +5,12 @@ const Advertiser = require('../models/advertiser');
 // function to list advertisements
 const listAdvertisement = async () => {
   try {
-    const advertisements = await Advertiser.find({}).exec();
+    const advertisements = await Advertiser.find({
+      isActive: true,
+      endDate: {
+        $gte: new Date().toISOString(),
+      },
+    }).exec();
 
     return {
       statusCode: 200,
@@ -24,9 +29,15 @@ const getAdvertisement = async (id) => {
   try {
     const advertisement = await Advertiser.findById(id).exec();
 
+    if (advertisement) {
+      return {
+        statusCode: 200,
+        ad: advertisement,
+      };
+    }
     return {
-      statusCode: 200,
-      ad: advertisement,
+      statusCode: 404,
+      message: 'Provided advertisement id not found',
     };
   } catch (err) {
     return {
@@ -81,6 +92,31 @@ const createAdvertisement = async (body) => {
   }
 };
 
+const updateAdvertisement = async (body) => {
+  try {
+    const { adId, ...updateQuery } = body;
+
+    const advertisement = await Advertiser.findByIdAndUpdate(adId,
+      updateQuery, { new: true }).exec();
+
+    if (advertisement) {
+      return {
+        statusCode: 200,
+        ad: advertisement,
+      };
+    }
+    return {
+      statusCode: 404,
+      message: 'Provided advertisement id not found',
+    };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      message: `Something went wrong while updating a advertisement, error: ${err.message.toString()}`,
+    };
+  }
+};
+
 // function to update advertisements
 const updateAdClickCount = async (body) => {
   try {
@@ -110,5 +146,6 @@ module.exports = {
   listAdvertisement,
   getAdvertisement,
   createAdvertisement,
+  updateAdvertisement,
   updateAdClickCount,
 };

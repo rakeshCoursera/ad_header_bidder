@@ -27,6 +27,20 @@ const createAdvertisementValidator = [
     .withMessage('createdBy length should be within 3 to 100 chars'),
 ];
 
+const updateAdvertisementValidator = [
+  check('adId').notEmpty()
+    .withMessage('adId is a required field'),
+  check('cpi').isFloat().notEmpty()
+    .withMessage('cpi should be a required and a number field'),
+  check('isActive').isBoolean()
+    .withMessage('isActive must be a boolean field'),
+  check('startDate').custom(isValidDate)
+    .withMessage('the startDate must be a valid date and should be in format YYYY-MM-DD'),
+  check('endDate').custom(isValidDate)
+    .withMessage('the endDate must be a valid date and should be in format YYYY-MM-DD'),
+];
+
 module.exports = {
   createAdvertisementValidator,
+  updateAdvertisementValidator,
 };
