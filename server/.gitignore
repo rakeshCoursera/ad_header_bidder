@@ -74,3 +74,6 @@ typings/
 
 # excludes files
 *.pdf
+
+# exclude jest generated global config
+globalConfig.json

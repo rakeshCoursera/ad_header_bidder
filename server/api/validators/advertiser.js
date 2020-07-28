@@ -12,9 +12,9 @@ const createAdvertisementValidator = [
   check('adName').isLength({ min: 8, max: 100 })
     .withMessage('adName length must be within 8 to 100 chars'),
   check('company').isLength({ min: 3, max: 100 })
-    .withMessage('adName length must be within 3 to 100 chars'),
+    .withMessage('company length must be within 3 to 100 chars'),
   check('adImage').isLength({ min: 10, max: 25000 })
-    .withMessage('adName length must be within 10 to 25000 chars'),
+    .withMessage('adImage length must be within 10 to 25000 chars'),
   check('cpi').isFloat().notEmpty()
     .withMessage('cpi should be a required and a number field'),
   check('isActive').isBoolean()
@@ -30,7 +30,7 @@ const createAdvertisementValidator = [
 const updateAdvertisementValidator = [
   check('adId').notEmpty()
     .withMessage('adId is a required field'),
-  check('cpi').isFloat().notEmpty()
+  check('cpi').isFloat()
     .withMessage('cpi should be a required and a number field'),
   check('isActive').isBoolean()
     .withMessage('isActive must be a boolean field'),

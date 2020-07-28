@@ -4,7 +4,7 @@ const { createAdvertisementValidator, updateAdvertisementValidator } = require('
 const {
   listAdvertisement,
   getAdvertisement,
-  createAvertisement,
+  createAdvertisement,
   updateAdvertisement,
   updateAdClickCount,
 } = require('../controllers/advertiser');
@@ -15,8 +15,6 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   // Finds the validation errors in this request and wraps them in an object with handy functions
   const resp = await listAdvertisement();
-
-  console.log('resp: ', resp);
 
   if (resp.statusCode === 200) {
     return res.status(resp.statusCode).json({
@@ -53,7 +51,7 @@ router.post('/', createAdvertisementValidator, async (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  const resp = await createAvertisement(req.body);
+  const resp = await createAdvertisement(req.body);
 
   if (resp.statusCode === 201) {
     return res.status(resp.statusCode).json({
@@ -95,7 +93,7 @@ router.patch('/conversions', async (req, res) => {
   if (resp.statusCode === 200) {
     return res.status(resp.statusCode).json({
       message: resp.message,
-      ads: resp.ad,
+      ad: resp.ad,
     });
   }
 
