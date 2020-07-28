@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   // Finds the validation errors in this request and wraps them in an object with handy functions
   const resp = await listAdvertisement();
 
-  console.log(resp);
+  console.log('resp: ', resp);
 
   if (resp.statusCode === 200) {
     return res.status(resp.statusCode).json({
