@@ -1,19 +1,18 @@
-# Password Reset RESTful API
-Password reset RESTful API to manage user signup, login, forgot password and password reset. 
+# Advertiser Header Bidder Restful APIs
+Advertiser RESTful APIs with CPI(cost per impression).
 
 ## Requirements
 1. Install a local MongoDB server or use vandor provided MongoDB instance.
 2. Add your configuration in `config/config.js` file.
-3. If using Gmail to send the mail then enable *Less secure app access* [Link](https://myaccount.google.com/lesssecureapps).
 
 ## Project Setup 
 1. Clone the project repository from github
 ```
-git clone https://github.com/rakeshCoursera/pwd_reset_assign.git
+git clone https://github.com/rakeshCoursera/ad_header_bidder.git
 ```
 2. Go to the project folder
 ```
-cd pwd_reset_assign
+cd ad_header_bidder/server
 ```
 3. Run npm install to install all dependencies
 ```
@@ -31,70 +30,241 @@ This will run the project while showing `Listening: http://localhost:3000` on co
 npm run dev
 ```
 
-## APIs 
-### /
-* `GET` : Get the version of API
+# APIs 
+## Advertiser APIs
+### /api/v1/advertiser/
+* *Description*: advertisement listing API
+* *Method*: GET
+* *Authorization*: Basic b64-encoded_admin_username:b64-encoded_admin_password 
+* *Responses*: 
+    * [200-Ok]
+    ```
+    {
+		"ads": [
+			{
+				"isActive": true/false,
+				"clickCount": "ad click count",
+				"_id": "document id",
+				"adName": "advertisement name",
+				"company": "advertising company",
+				"adImage": "image to be showcase(url or base64 string)",
+				"cpi": "cost per impression",
+				"startDate": "advertise start date to show",
+				"endDate": "advertise end date to show",
+				"createdBy": "username who created the advertise ",
+				"createdAt": "date at which advertise is created",
+				"__v": "version key of document"
+			},
+			{
+				"isActive": true/false,
+				"clickCount": "ad click count",
+				"_id": "document id",
+				"adName": "advertisement name",
+				"company": "advertising company",
+				"adImage": "image to be showcase(url or base64 string)",
+				"cpi": "cost per impression",
+				"startDate": "advertise start date to show",
+				"endDate": "advertise end date to show",
+				"createdBy": "username who created the advertise ",
+				"createdAt": "date at which advertise is created",
+				"__v": "version key of document"
+			},
+		]
+	}
+    ```
+    * [500-Internal Server Error]
+    ```
+    {
+     "error": "error message"
+    }
+    ```
 
-### /user/signup
-* *Description*: user signup API
-* *Method*: POST
-* *Body*: 
-```
-{
-	"email": "test@test.com",
-	"password": "Test@123",
-	"mobile": "9000090000"
-}
-```
-* *Response*: Could be one from `User already exists`, and `User created`, if all goes well else will give a error message.
+### /api/v1/advertiser/<advertisement_id>
+* *Description*: get details of an advertisement API
+* *Method*: GET
+* *Authorization*: Basic b64-encoded_admin_username:b64-encoded_admin_password 
+* *Responses*: 
+    * [200-Ok]
+    ```
+    {
+		"ad":
+		{
+			"isActive": true/false,
+			"clickCount": "ad click count",
+			"_id": "document id",
+			"adName": "advertisement name",
+			"company": "advertising company",
+			"adImage": "image to be showcase(url or base64 string)",
+			"cpi": "cost per impression",
+			"startDate": "advertise start date to show",
+			"endDate": "advertise end date to show",
+			"createdBy": "username who created the advertise ",
+			"createdAt": "date at which advertise is created",
+			"__v": "version key of document"
+		},
+			
+	}
+	```
+	* [404-Not Found]
+    ```
+    {
+     "message": "Provided advertisement id not found"
+    }
+    ```
+    * [500-Internal Server Error]
+    ```
+    {
+     "error": "error message"
+    }
+    ```
 
-### /user/login
-* *Description*: user login API, to be used after signup done
-* *Method*: POST
-* *Body*: 
-```
-{
-	"email": "test@test.com",
-	"password": "Test@123"
-}
-or 
-{
-	"mobile": "9000090000",
-	"password": "Test@123"
-}
-or 
-{
-	"email": "test@test.com",
-	"password": "Test@123",
-	"mobile": "9000090000"
-}
-```
-* *Response*: Will give `Authentication successful`, if credentials are correct else will give a `Authenticaton failed`. In case of error, will give a error message.
 
-### /user/forgot
-* *Description*: user forgot password API to get the password reset token on mail
+### /api/v1/advertiser/
+* *Description*: Create an advertisement API
 * *Method*: POST
-* *Body*: 
-```
-{
-	"email": "test@test.com",
-}
-```
-* *Response*: Could be one from `reset password mail sent`, and `User account not exists`, if all goes well else will give a error message.
+* *Authorization*: Basic b64-encoded_admin_username:b64-encoded_admin_password 
+* *Body(application/JSON)*: 
+   ```
+    {
+        "adName": "advertisement name",
+		"company": "advertising company",
+		"adImage": "image to be showcase(url or base64 string)",
+		"isActive": true/false,
+		"cpi": "cost per impression",
+		"startDate": "advertise start date to show",
+		"endDate": "advertise end date to show",
+		"createdBy": "username who created the advertise ",
+    }
+   ```
+* *Responses*: 
+    * [200-Ok]
+    ```
+    {
+		"ad":
+		{
+			"isActive": true/false,
+			"clickCount": "ad click count",
+			"_id": "document id",
+			"adName": "advertisement name",
+			"company": "advertising company",
+			"adImage": "image to be showcase(url or base64 string)",
+			"cpi": "cost per impression",
+			"startDate": "advertise start date to show",
+			"endDate": "advertise end date to show",
+			"createdBy": "username who created the advertise ",
+			"createdAt": "date at which advertise is created",
+			"__v": "version key of document"
+		},
+			
+	}
+	```
+	* [409-Conflict]
+    ```
+    {
+     "message": "Advertisement with same name already exists"
+    }
+    ```
+    * [500-Internal Server Error]
+    ```
+    {
+     "error": "error message"
+    }
+    ```
 
-### /user/reset/token
-* *Description*: user password reset API to change the password to a new password
-* *Method*: POST
-* *Body*: 
-```
-{
-	"email": "test@test.com",
-	"password": "Test@75"
-}
-```
-* *Response*: Could be one from `Password reset successfully`, `Using a expired token`, `Token already used for password reset`, and `User account not exists`, if all goes well else will give a error message.
+### /api/v1/advertiser/
+* *Description*: update a already created advertisement API
+* *Method*: PATCH
+* *Authorization*: Basic b64-encoded_admin_username:b64-encoded_admin_password 
+* *Body(application/JSON)*: 
+   ```
+    {
+        "adId": "advertisement id",
+		"isActive": true/false,
+		"cpi": "cost per impression",
+		"startDate": "advertise start date to show",
+		"endDate": "advertise end date to show"
+    }
+   ```
+* *Responses*: 
+    * [200-Ok]
+    ```
+    {
+		"ad":
+		{
+			"isActive": true/false,
+			"clickCount": "ad click count",
+			"_id": "document id",
+			"adName": "advertisement name",
+			"company": "advertising company",
+			"adImage": "image to be showcase(url or base64 string)",
+			"cpi": "cost per impression",
+			"startDate": "advertise start date to show",
+			"endDate": "advertise end date to show",
+			"createdBy": "username who created the advertise ",
+			"createdAt": "date at which advertise is created",
+			"__v": "version key of document"
+		},
+			
+	}
+	```
+	* [404-Not Found]
+    ```
+    {
+     "message": "Provided advertisement id not found"
+    }
+    ```
+    * [500-Internal Server Error]
+    ```
+    {
+     "error": "error message"
+    }
+    ```
+
+### /api/v1/advertiser/conversions
+* *Description*: update the click count for CPI for an advertisement
+* *Method*: PATCH
+* *Authorization*: Basic b64-encoded_admin_username:b64-encoded_admin_password 
+* *Body(application/JSON)*: 
+   ```
+    {
+        "adId": "advertisement id",
+    }
+   ```
+* *Responses*: 
+    * [200-Ok]
+    ```
+    {
+		"ad":
+		{
+			"isActive": true/false,
+			"clickCount": "ad click count",
+			"_id": "document id",
+			"adName": "advertisement name",
+			"company": "advertising company",
+			"adImage": "image to be showcase(url or base64 string)",
+			"cpi": "cost per impression",
+			"startDate": "advertise start date to show",
+			"endDate": "advertise end date to show",
+			"createdBy": "username who created the advertise ",
+			"createdAt": "date at which advertise is created",
+			"__v": "version key of document"
+		},
+			
+	}
+	```
+	* [404-Not Found]
+    ```
+    {
+     "message": "Provided advertisement id not found"
+    }
+    ```
+    * [500-Internal Server Error]
+    ```
+    {
+     "error": "error message"
+    }
+    ```
 
 ## Future Scope
 1. Implement [Swagger UI](https://swagger.io/tools/swagger-ui/) for better visualization and interaction with the API’s.
-2. Write unit tests with coverage report.
-3. Add a UI to showcase the functionality (with React, Redux) of these APIs.
+2. In memory cache layering with Redis for increased throughput and lower latency.
