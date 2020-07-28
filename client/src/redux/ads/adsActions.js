@@ -22,6 +22,7 @@ export const fetchAds = () => {
         }
       }
       const resp = await axios(options);
+      console.log('fetch advertisement:', resp.data);
       dispatch(fetchAdsSuccess(resp.data.ads));
     } catch (err) {
       dispatch(fetchAdsFailure(err))
@@ -48,6 +49,7 @@ export const recordConversions = (advertisementId) => {
         }
       }
       const resp = await axios(options);
+      console.log('record conversion:', resp.data);
       dispatch(updateRecordConversionSuccess(advertisementId));
     } catch (err) {
       dispatch(updateRecordConversionFailure(advertisementId))
