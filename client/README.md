@@ -1,6 +1,4 @@
-# HackerNews Clone
-
-Heroku app url: https://mighty-chamber-04970.herokuapp.com
+# HackerNews Clone with Advertisement
 
 ## Project Setup (Client-Side)
 1. Clone the project repository from github
