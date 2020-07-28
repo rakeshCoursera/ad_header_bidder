@@ -6,7 +6,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-import {hideNews, incrementVote} from '../redux/index'
+import {hideNews, incrementVote} from '../../redux/index'
 
 export const StyledTableCell = withStyles((theme) => ({
     head: {

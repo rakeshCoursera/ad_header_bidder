@@ -88,6 +88,7 @@ router.patch('/', updateAdvertisementValidator, async (req, res) => {
 });
 
 router.patch('/conversions', async (req, res) => {
+  console.log('body: ', req.body);
   const resp = await updateAdClickCount(req.body);
 
   if (resp.statusCode === 200) {

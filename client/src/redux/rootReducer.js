@@ -16,7 +16,7 @@ export const persistConfig = {
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
     news: newsReducer,
-    ads: adsReducer
+    ads: adsReducer,
 });
 
 export default createRootReducer;

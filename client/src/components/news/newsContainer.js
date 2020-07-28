@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { fetchNews } from '../redux/index';
+import { fetchNews } from '../../redux/index';
 import Chart from './lineChart';
 import MakeTable from './table';
 import Pagination from './pagination';

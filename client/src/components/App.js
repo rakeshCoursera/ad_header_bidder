@@ -1,10 +1,10 @@
 import React from 'react';
-import NewsContainer from './newsContainer';
 import { makeStyles } from '@material-ui/core/styles';
 
 import NavBar from './navbar';
 import Footer from './footer';
-import Advertisement from './advertisement';
+import NewsContainer from './news/newsContainer';
+import Advertisement from './ads/advertisement';
 
 const useStyles = makeStyles(theme => ({
   layout: {

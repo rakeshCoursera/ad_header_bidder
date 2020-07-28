@@ -13,7 +13,7 @@ export const fetchNews = (page = 0) => {
   return async (dispatch) => {
     try{
       dispatch(fetchNewsRequest(page));
-      const resp = await axios.get(`${config.apiUrl}?page=${page}`);
+      const resp = await axios.get(`${config.newsApiUrl}?page=${page}`);
       dispatch(fetchNewsSuccess(resp.data));
     } catch(err) {
       dispatch(fetchNewsFailure(err))
